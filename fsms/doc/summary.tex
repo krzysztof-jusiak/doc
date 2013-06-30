@@ -1,0 +1,20 @@
+\chapter{Summary}
+Document presents comparison between different C++ Finite State Machine frameworks.
+Tested frameworks vary in their terms of functionality, approach and concept.
+Frameworks were compared due to compilation speed, execution time, debug size, strip size, memory
+consumption, functionality and UML compatibility. Also different compilers and compilation flags were taken into account.
+Results shows that declarative concept might be as efficient as imperative concept
+while preserving at the same transparency of the state machine, as well as easy to test
+code. Tests also indicate that there is no one way to implement FSM framework which meet all the
+given criteria. Therefore frameworks like msm, QFsm have the advantage that the policy may be
+adjusted to better meet some of the requirements.
+In most cases compilation time seems to be longer in proportion to execution time.
+This does not apply to QFsm.FavorCompilationTime for which execution speed is kept in most tests as well
+as compilation time. QFsm.FavorExecutionSpeed and msm in case of compilation time seems to be far away after opponents.
+Execution speed shows that msm, QFsm.FavorExecutionSpeed, QFsm.FavorCompilationTime are the fastest.
+StateChart, QFsm.FavorDebugSize are about 10 times slower.
+Debug size is huge in msm and QFsm.FavorExecutionSpeed and the remaining frameworks keep the debug size
+within reasonable limits. Release (strip) size is the smallest in QFsm.FavorCompilationTime.
+About 2 times bigger in QFsm.FavorExecutionSpeed, 3 times bigger in msm, statechart.
+Memory consumption meets the requirements in all frameworks besides the statechart
+framework.

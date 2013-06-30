@@ -1,0 +1,3 @@
+compilation time measured by 'time' call
+only 'real' time is taken into account
+result is in seconds

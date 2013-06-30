@@ -1,0 +1,58 @@
+IN:
+    N = event call times (in order e1, e2, e3, e4, e5, e6, e1, e2, ...)
+    events { e1, e2, e3, e4, e5, e6 }
+    states { S1, S2, S3, S4, S5, S6 }
+    fsm
+    {
+         {S1, e1, S1}
+         {S1, e2, S2}
+         {S1, e3, S3}
+         {S1, e4, S4}
+         {S1, e5, S5}
+         {S1, e6, S6}
+         {S2, e1, S1}
+         {S2, e2, S2}
+         {S2, e3, S3}
+         {S2, e4, S4}
+         {S2, e5, S5}
+         {S2, e6, S6}
+         {S3, e1, S1}
+         {S3, e2, S2}
+         {S3, e3, S3}
+         {S3, e4, S4}
+         {S3, e5, S5}
+         {S3, e6, S6}
+         {S4, e1, S1}
+         {S4, e2, S2}
+         {S4, e3, S3}
+         {S4, e4, S4}
+         {S4, e5, S5}
+         {S4, e6, S6}
+         {S5, e1, S1}
+         {S5, e2, S2}
+         {S5, e3, S3}
+         {S5, e4, S4}
+         {S5, e5, S5}
+         {S5, e6, S6}
+         {S6, e1, S1}
+         {S6, e2, S2}
+         {S6, e3, S3}
+         {S6, e4, S4}
+         {S6, e5, S5}
+         {S6, e6, S6}
+    }
+OUT:
+    fsm state
+    {
+        0. -  { S1 }
+        1. e1 { S2 }
+        2. e2 { S2 }
+        3. e3 { S3 }
+        4. e4 { S4 }
+        4. e5 { S5 }
+        4. e6 { S6 }
+        5. e1 { S1 }
+        ...
+        N. ex { Sx }
+    }
+

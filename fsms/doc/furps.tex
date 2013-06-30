@@ -1,0 +1,250 @@
+\chapter{FSM Comparison}
+\section{FURPS}
+
+\textbf{FSM Framework Design Goals}
+\begin{itemize}
+\item \textbf{Interoperability}\\
+    State machines are typically just an abstraction for describing the logic of a system
+    targeted at some problem domain(s) other than FSM construction. We'd like to be able to use libraries
+    built for those domains in the implementation of our FSMs, so we want to be sure we can comfortably
+    interoperate with other DSELs.
+
+\item \textbf{Declarativeness}\\
+    State machine authors should have the experience of describing the structure of
+    FSMs rather than implementing their logic. Ideally, building a new state machine should involve little
+    more than transcribing its stat transition table into a C++ program. As framework providers, we should be able to
+    seamlessly change the implementation of a state machine's logic without affecting the author's
+    description.
+
+\item \textbf{Expressiveness}\\
+    It should be easy both to represent and to recognize the domain abstraction in a
+    program. In our case, an state transitoin table in code should look very much as it does when we design a state
+    machine on paper.
+
+\item \textbf{Efficiency}\\
+    A simple FSM should ideally compile down to extremely tight code
+    that can be optimized into something appropriate even for a tiny embedded system. Perhaps more
+    importantly, concerns about the efficiency of our framework should never give programmers an
+    excuse for using ad hoc logic where the sound abstraction of a finite state machine might otherwise
+    apply.
+
+\item \textbf{Static Type Safety}\\
+    It's important to catch as many problems as possible at compile time. A typical
+    weakness of many traditional FSM designs is that they do most of their checking at
+    runtime. In particular, there should be no need for unsafe downcasts to access the different datatypes
+    contained by various events.
+
+\item \textbf{Maintainability}\\
+    Simple changes to the state machine design should result in only simple changes to
+    its implementation. This may seem like an obvious goal, but it's nontrivial to attainexperts have tried
+    and failed to achieve it. For example, when using the State design pattern, a single change
+    such as adding a transition can lead to refactoring multiple classes.
+
+\item \textbf{Scalability}\\
+    FSMs can grow to be really complex, incorporating
+    such features as per-state entry and exit actions, conditional transition guards, default and triggerless
+    transitions and even sub-states. If the framework doesn't support these features today, it should be
+    reasonably extensible to do so tomorrow.
+\end{itemize}
+
+\newpage
+\textbf{FURPS} is an acronym representing a model for classifying software quality attributes (functional and non-functional requirements):
+\begin{itemize}
+\item \textbf{F}unctionality - Feature set, Capabilities, Generality, Security
+\item \textbf{U}sability - Human factors, Aesthetics, Consistency, Documentation
+\item \textbf{R}eliability - Frequency/severity of failure, Recoverability, Predictability, Accuracy, Mean time to failure
+\item \textbf{P}erformance - Speed, Efficiency, Resource consumption, Throughput, Response time
+\item \textbf{S}upportability - Testability, Extensibility, Adaptability, Maintainability, Compatibility, Configurability, Serviceability, Installability, Localizability, Portability
+\end{itemize}
+
+\subsection{FURPS and FSM Frameworks}
+
+\begin{itemize}
+\item \textbf{Functionality}
+    \begin{enumerate}[a)]
+        \item UML features / extensions
+            \begin{itemize}
+
+                \item State machine
+                    \begin{itemize}
+                        \item Nested FSMs
+                        \item Orthogonal regions
+                        \item Shallow history
+                        \item Deep history
+                    \end{itemize}
+
+                \item States
+                    \begin{itemize}
+                        \item Normal state
+                        \item Initial state
+                        \item Final state
+                        \item Super state
+                        \item Pseudo state
+                    \end{itemize}
+
+                \item Events
+                    \begin{itemize}
+                        \item Call event
+                        \item Internal event
+                    \end{itemize}
+
+                \item Reactions
+                    \begin{itemize}
+                        \item Guard
+                        \item Transition
+                        \item Deferral
+                        \item Completion/Anonymous transition
+                        \item Internal transition
+                        \item Self transition
+                        \item Conflicting transition (overlapping guards, internal transition in sub fsm and other state)
+                    \end{itemize}
+
+                \item Actions
+                    \begin{itemize}
+                        \item Entry action
+                        \item Exit action
+                        \item Transition action
+                    \end{itemize}
+
+            \end{itemize}
+
+        \item Extra features
+            \begin{itemize}
+                \item Logging (frameworks supports logging events)
+            \end{itemize}
+    \end{enumerate}
+
+\item \textbf{Usability}
+    \begin{enumerate}[a)]
+        \item User interface
+            \begin{itemize}
+                \item Simple
+                \item Intuitive
+                \item Not redundant
+            \end{itemize}
+    \end{enumerate}
+
+\item \textbf{Repeatability}
+    \begin{enumerate}[a)]
+        \item Exception safety
+    \end{enumerate}
+
+\item \textbf{Performance}
+    \begin{enumerate}[a)]
+        \item Event processing (dispatching) time
+        \item Binary size (debug, release)
+        \item Runtime memory consumption (valgrind)
+        \item Compilation time
+    \end{enumerate}
+
+\item \textbf{Supportability}
+    \begin{enumerate}[a)]
+        \item Testability (dependency injection)
+    \end{enumerate}
+
+\item \textbf{Others}
+    \begin{enumerate}[a)]
+        \item UML compatibility
+        \item UML state diagram generation (how easy is to generate state diagram / scripts existence)
+    \end{enumerate}
+
+\end{itemize}
+\begin{table}[ht]
+
+\newcommand{\yes}{\cellcolor{green}\checkmark}
+\newcommand{\simple}{\cellcolor{green}simple}
+\newcommand{\some}{\cellcolor{yellow}no superstate}
+\newcommand{\no}{\cellcolor{red}-}
+\newcommand{\verify}{\cellcolor{yellow}?}
+\newcommand{\x}{\cellcolor{white}x}
+\newcommand{\notall}{\cellcolor{orange}not all}
+
+\caption{FURPS FSM comparison}
+\centering
+\begin{tabular}{| l | l | c | c | c | c | c |}
+\hline
+FURPS &                             & MSM       & StateChart    & QFsm       \\
+\hline
+\multirow{6}{*}{State machine}
+& Nested FSMs                       & \yes      & \yes          & \yes       \\
+& Orthogonal regions                & \yes      & \yes          & \yes       \\
+& Shallow history                   & \yes      & \yes          & \yes       \\
+& Deep history                      & \yes      & \yes          & \yes       \\
+\hline
+\multirow{5}{*}{States}
+& Normal state                      & \yes      & \yes          & \yes       \\
+& Initial state                     & \yes      & \yes          & \yes       \\
+& Final state                       & \yes      & \yes          & \yes       \\
+& Super state                       & \no       & \no           & \no        \\
+& Pseudo state                      & \yes      & \no           & \yes       \\
+\hline
+\multirow{3}{*}{Events}
+& Call event                        & \yes      & \yes          & \yes       \\
+& Internal event                    & \yes      & \yes          & \yes       \\
+\hline
+\multirow{7}{*}{Reactions}
+& Guard                             & \yes      & \yes          & \yes       \\
+& Transition                        & \yes      & \yes          & \yes       \\
+& Deferral                          & \yes      & \yes          & \yes       \\
+& Completion transition             & \yes      & \yes          & \yes       \\
+& Internal transition               & \yes      & \yes          & \yes       \\
+& Self transition                   & \yes      & \no           & \yes       \\
+& Conflicting transition            & \yes      & \no           & \yes       \\
+\hline
+\multirow{3}{*}{Actions}
+& Entry action                      & \yes      & \yes          & \yes       \\
+& Exit action                       & \yes      & \yes          & \yes       \\
+& Transition action                 & \yes      & \yes          & \yes       \\
+\hline
+\multirow{1}{*}{Extra features}
+& Logging                           & \no       & \no           & \yes       \\
+\hline
+\multirow{3}{*}{User interface}
+& Simple                            & \yes      & \yes          & \yes       \\
+& Intuitive                         & \yes      & \no           & \yes       \\
+& Not redundant                     & \yes      & \no           & \yes       \\
+\hline
+\multirow{1}{*}{Repeatability}
+& Exception safety                  & \yes      & \yes          & \yes       \\
+\hline
+\multirow{2}{*}{Supportability}
+& Testability                       & \yes      & \no           & \yes       \\
+\multirow{2}{*}{Others}
+& UML compatibility                 & \yes      & \yes          & \yes       \\
+& UML state diagram generation      & \simple   & \no           & \yes       \\
+\hline
+\end{tabular}
+\end{table}
+
+\begin{table}[ht]
+
+\newcommand{\yes}{\cellcolor{green}\checkmark}
+\newcommand{\simple}{\cellcolor{green}simple}
+\newcommand{\some}{\cellcolor{yellow}no superstate}
+\newcommand{\no}{\cellcolor{red}-}
+\newcommand{\verify}{\cellcolor{yellow}?}
+\newcommand{\x}{\cellcolor{white}x}
+\newcommand{\notall}{\cellcolor{orange}not all}
+\caption{FSM Framework Design Goals}
+\centering
+\begin{tabular}{| l | c | c | c | c |}
+\hline
+FSM Framework Design Goal         & MSM       & StateChart    & QFsm       \\
+\hline
+Interoperability                  & \yes      & \yes          & \yes       \\
+\hline
+Declarativeness                   & \yes      & \notall       & \yes       \\
+\hline
+Expressiveness                    & \yes      & \yes          & \yes       \\
+\hline
+Efficiency                        & \yes      & \no           & \yes       \\
+\hline
+Static Type Safety                & \yes      & \no           & \yes       \\
+\hline
+Maintainability                   & \yes      & \yes          & \yes       \\
+\hline
+Scalability                       & \yes      & \yes          & \yes       \\
+\hline
+\end{tabular}
+\end{table}
+

@@ -1,0 +1,19 @@
+IN:
+    N = e1 event call times
+    events { e1 }
+    states { S1, S2 }
+    fsm
+    {
+        {S1, e1, S2}
+        {S2, e1, S1}
+    }
+OUT:
+    fsm state
+    {
+        0. -  { S1 }
+        1. e1 { S2 }
+        2. e1 { S1 }
+        ...
+        N. e1 { Sx }
+    }
+

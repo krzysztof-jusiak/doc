@@ -1,0 +1,75 @@
+\documentclass[12pt]{report}
+%\documentclass[12pt, draft]{report}
+\usepackage[a3paper]{geometry}
+\usepackage{multirow}
+\usepackage{graphicx}
+\usepackage{color}
+\usepackage{hyperref}
+\usepackage{enumerate}
+\usepackage{amsthm}
+\usepackage{amssymb}
+\usepackage{listings}
+\usepackage{pdflscape}
+\usepackage{color, colortbl}
+\usepackage[table]{xcolor}
+\usepackage{longtable}
+\usepackage{tabularx}
+\geometry{total={297mm, 420mm}, left=20mm, right=22mm, top=25mm, bottom=25mm}
+
+\hypersetup{
+    pdffitwindow=true,
+    pdfstartview={FitH},
+    colorlinks=true,
+    linkcolor=blue,
+    citecolor=red,
+    urlcolor=blue
+}
+
+\lstset{
+    basicstyle=\footnotesize,
+    numbers=left,
+    numberstyle=\footnotesize,
+    stepnumber=1,
+    numbersep=5pt,
+    frame=single,
+    breaklines=true,
+    title=\lstname
+}
+
+\sloppy
+\newtheorem{definition}{Definition}
+
+\begin{document}
+\author{Krzysztof Jusiak}
+\title{C++ FSM frameworks comparison}
+\frenchspacing
+\maketitle
+
+\begin{abstract}
+Document presents comparison between C++ FSM frameworks:
+\begin{itemize}
+\item Boost Meta State Machine (msm)
+\item Boost State Chart (statechart)
+\item Quick Finite State Machine (QFsm)
+\end{itemize}
+\end{abstract}
+
+\clearpage
+\tableofcontents
+
+\include{introduction}
+\include{frameworks}
+\include{furps}
+\include{tests}
+\include{results}
+\include{summary}
+\include{references}
+\include{addonA}
+\include{revision_history}
+
+\clearpage
+\listoffigures
+\listoftables
+
+\end{document}
+
