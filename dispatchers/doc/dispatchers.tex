@@ -42,35 +42,26 @@
 \begin{document}
 \date{}
 \author{Krzysztof Jusiak}
-\title{C++ FSM frameworks comparison}
+\title{C++ dispatching concepts comparison}
 \frenchspacing
 \maketitle
 
 \begin{abstract}
-Document presents comparison between C++ FSM frameworks:
+Document presents comparison between C++ dispatching concepts:
 \begin{itemize}
-\item Boost Meta State Machine (msm)
-\item Boost State Chart (statechart)
-\item Quick Finite State Machine (QFsm)
+\item Type safe dispatcher using meta if-else
+\item Type safe dispatcher using switch/case
+\item Type safe dispatcher using std::map
+\item Type safe dispatcher using boost::unordered\_map
+\item Type safe dispatcher using raw table
 \end{itemize}
 \end{abstract}
 
 \clearpage
 \tableofcontents
 
-\include{introduction}
-\include{frameworks}
-\include{furps}
-\include{tests}
-\include{results}
-\include{summary}
-\include{references}
-\include{addonA}
+\include{results_all}
 \include{revision_history}
-
-\clearpage
-\listoffigures
-\listoftables
 
 \end{document}
 

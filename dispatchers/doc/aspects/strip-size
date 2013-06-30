@@ -1,0 +1,2 @@
+size of the binary measured by 'ls -k' call after 'strip' call
+result is in kilobytes

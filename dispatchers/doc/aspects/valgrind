@@ -1,0 +1,5 @@
+test is executed with valgrind call
+result is as A/D (S), where
+    A - allocations
+    D - deallocations
+    S - global allocated size in bytes
